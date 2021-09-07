@@ -5,19 +5,17 @@ const path = require('path');
 
 // Settings
 app.set('port', 4000);
-app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
+app.engine('html', require('ejs').renderFile);
+app.set('view engine', 'ejs');
 
 // Middlewares
 
-// Routes
-app.get('/', (req,res)=>{
-
- res.render('index');
-
-});
+// routes linked
+app.use(require('./routes/'));
 
 // Static files
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Escuchando el puerto por el servidor 
 app.listen(app.get('port'),() =>{
